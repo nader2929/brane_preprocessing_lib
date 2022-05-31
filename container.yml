@@ -1,0 +1,121 @@
+name: preprocessing
+version: 1.0.5
+kind: ecu
+base: python:3.9-slim-buster
+
+entrypoint:
+  kind: task
+  exec: preprocessing.py
+
+dependencies:
+  # - python3
+  # - gcc
+  # - libc-dev
+  # - musl-dev
+  # - g++
+  # - py3-pip
+
+install:
+#  - apk add build-base
+  - pip3 install pyyaml numpy pandas seaborn sklearn
+
+files:
+  - preprocessing.py
+  - parameters.py
+
+actions:
+  analyse_column:
+    command:
+      args:
+        - analyse_column
+
+    input:
+      - name: column
+        type: string
+      - name: printmessages
+        type: boolean
+      - name: data_path
+        type: string
+
+
+    output:
+      - name: resultOutput
+        type: string
+
+  analyse_column_with_filter:
+    command:
+      args:
+        - analyse_column_with_filter
+    
+    input:
+      - name: column
+        type: string
+      - name: filter_column
+        type: string
+      - name: printmessages
+        type: boolean
+      - name: data_path
+        type: string
+
+    output:
+      - name: resultOutput
+        type: string
+
+  replace_string_values:
+    command:
+      args:
+        - replace_string_values
+    
+    input:
+      - name: string_columns
+        type: string
+      - name: data_path
+        type: string
+
+    output:
+      - name: resultOutput
+        type: string
+
+  train_and_test_classifier:
+    command:
+      args:
+        - train_and_test_classifier
+    
+    input:
+      - name: target_column
+        type: string
+      - name: test_size
+        type: real
+      - name: model_type
+        type: string
+      - name: exclude_first_column
+        type: boolean
+      - name: replace_strings
+        type: boolean      
+      - name: data_path
+        type: string
+
+    output:
+      - name: resultOutput
+        type: string
+
+  load_classifier_and_predict:
+    command:
+      args:
+        - load_classifier_and_predict
+    
+    input:
+      - name: model_path
+        type: string
+      - name: predict_data_path
+        type: string
+      - name: prediction_column_name
+        type: string
+      - name: replace_strings
+        type: boolean
+      - name: use_first_column_as_index
+        type: boolean
+
+    output:
+      - name: resultOutput
+        type: string
