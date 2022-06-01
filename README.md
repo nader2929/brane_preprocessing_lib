@@ -4,6 +4,19 @@ This library is to be used for preprocessing data and training classifiers.
 
 ---
 
+`drop_columns` : Take a CSV file and drop the specified columns such that a new file is created without those columns at a similarily named CSV file, the filename will be the same plus `_red` (for reduced) before eh extension. E.g. Drop "['Name', 'Ticket', 'Fare', 'Cabin']" from train.csv and save the result into train_red.csv.
+
+> Input
+
+- `columns_to_drop : string` : A string in the format of a list of string that is formatted is as "['value1', 'value2', 'value3', 'value4', 'value5', ...]" indicating the columns to drop from the dataset provided.
+- `data_path : string` : The path in the Brane environment to find the data to use.
+
+> Output
+
+- `resultOutput : string` : A string explaing where the file has been saved.
+
+---
+
 `analyse_column` : Get the basic categorical stats on a column in a CSV file and write the stats to a new CSV file. Function assumes that the column is a categorical column. The file that the stats will be saved to will be called `/data/COLUMN_analysed.csv`. The input must be a CSV file.
 
 > Input
@@ -37,7 +50,7 @@ This library is to be used for preprocessing data and training classifiers.
 
 > Input
 
-- `string_columns : string` : A string in the format of a list of string that is formatted is as "['value1', 'value2', 'value3', 'value4', 'value5', ...]"
+- `string_columns : string` : A string in the format of a list of string that is formatted is as "['value1', 'value2', 'value3', 'value4', 'value5', ...]" indicating the columns to replace the string values of.
 - `data_path : string` : The path in the Brane environment to find the data to use.
 
 > Output
