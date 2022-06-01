@@ -1,5 +1,5 @@
 name: preprocessing
-version: 1.0.5
+version: 1.0.8
 kind: ecu
 base: python:3.9-slim-buster
 
@@ -23,7 +23,22 @@ files:
   - preprocessing.py
   - parameters.py
 
-actions:
+actions:  
+  drop_columns:
+    command:
+      args:
+        - drop_columns
+    
+    input:
+      - name: columns_to_drop
+        type: string
+      - name: data_path
+        type: string
+
+    output:
+      - name: resultOutput
+        type: string
+
   analyse_column:
     command:
       args:
